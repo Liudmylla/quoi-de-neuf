@@ -1,0 +1,13 @@
+@import 'variables.scss';
+
+body {
+    background-color: $wiki-color;
+}
+
+/* ANNONCES */
+.annonce-card{
+    background-color: $light-color;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 25px;
+}

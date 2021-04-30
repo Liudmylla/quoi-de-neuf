@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home
+{% endblock %}
+
+{% block body %}
+	<h1>Annonces russes</h1>
+	{% for annonce in annonces %}
+		<div class="annonce-card">
+			<p>{{ annonce.titre }}</p>
+			<p>{{ annonce.contenu }}</p>
+			{#<p>{{ article.picture }}</p>
+			<p>{{ article.isPublished ? '' : 'En attente de validation' }}</p>
+			<p>{{ article.creationDate ? article.creationDate|date('Y-m-d H:i:s') : '' }}</p>#}
+			<p>
+				<a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a>
+				{% if app.user %}
+					<a href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
+				{% endif %}
+			</p>
+		</div>
+	{% else %}
+		<div>
+			<p>Aucun annonce disponible</p>
+		</div>
+	{% endfor %}
+{% endblock %}

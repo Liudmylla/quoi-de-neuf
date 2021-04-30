@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces russes {% endblock %}
+
+{% block body %}
+
+    <h1>Annonce index</h1>
+  {#<img src="{{ asset('build/test.png') }}" alt=""/>#}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Created_date</th>
+                <th>Lieux</th>
+                <th>Is_validated</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for annonce in annonces %}
+            <tr>
+                <td>{{ annonce.id }}</td>
+                <td>{{ annonce.titre }}</td>
+                <td>{{ annonce.contenu }}</td>
+                <td>{{ annonce.createdDate ? annonce.createdDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ annonce.lieux }}</td>
+                <td>{{ annonce.isValidated ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('annonce_show', {'id': annonce.id}) }}">show</a>
+                    <a href="{{ path('annonce_edit', {'id': annonce.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('annonce_new') }}">Create new</a>
+{% endblock %}
