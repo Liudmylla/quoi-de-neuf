@@ -4,8 +4,13 @@
 {% endblock %}
 
 {% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center my-5">   
 	<h1>Annonces russes</h1>
+    </div>
 	{% for annonce in annonces %}
+      <div class="col-12 col-md-4">
 		<div class="annonce-card">
 			<p>{{ annonce.titre }}</p>
 			<p>{{ annonce.contenu }}</p>
@@ -19,6 +24,7 @@
 				{% endif %}
 			</p>
 		</div>
+     </div>
 	{% else %}
 		<div>
 			<p>Aucun annonce disponible</p>
