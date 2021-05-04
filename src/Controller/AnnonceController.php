@@ -36,6 +36,10 @@ class AnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $annonce->setCreatedDate(new \DateTime());
+            $currentUser = $this->getUser();
+            $annonce->setAuteur($currentUser);
+            $annonce->setIsValidated(false);
             $entityManager->persist($annonce);
             $entityManager->flush();
 

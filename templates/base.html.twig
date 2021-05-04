@@ -17,11 +17,13 @@
        {% block header %}
        
          <a href="{{ path('home') }}"> Accueil</a>
+         <a href="{{ path('annonce_new') }}"> New</a>
         {% if app.user %}
-            {{ app.user.email }}
+           Hello {{ app.user.email }}
            <a href="{{ path('app_logout') }}"> Se déconnecter</a>
         {% else %}
           <a href="{{ path('app_login') }}"> Se connecter</a>
+          <a href="{{ path('app_register') }}"> S'inscrire</a>
         {% endif %}
     {% endblock %}
         {% block body %} {% endblock %}
