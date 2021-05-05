@@ -11,15 +11,12 @@
 	
     </div>
 	{% for annonce in annonces %}
-		<pre>
-			{{ dump(annonce) }}
-		</pre>
+		
 	{#{% if annonce.isValidated %}#}
       <div class="col-12 col-md-4">
 		<div class="annonce-card">
-		
-		
 			<p>Titre d'annonce: {{ annonce.titre }}</p>
+			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }} " width="300px" alt="sadness" />
 			<p>Contenue: {{ annonce.contenu }}</p>
 			{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
 			<p>Created_date:{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}</p>

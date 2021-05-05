@@ -6,6 +6,7 @@ use App\Repository\AnnonceRepository;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 //Ici on importe le package Vich, que l’on utilisera sous l’alias “Vich”
 
@@ -20,29 +21,23 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 class Annonce
 
 {
-    
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $image;
 
-
-
-      //On va créer un nouvel attribut à notre entité, qui ne sera pas lié à une colonne
-   
-        // Tu peux d’ailleurs voir que l’annotation ORM column n’est pas spécifiée car
-   
-      //On ne rajoute pas de données de type file en bdd
-   
-        /**
-   
-         * @Vich\UploadableField(mapping="poster_file", fileNameProperty="poster")
-   
-         * @var File
-   
-         */
-   
-        private $posterFile;
-   
-   
-
-
+     /**
+     * @Vich\UploadableField(mapping="annonce_images", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+    /**
+     * @Vich\UploadableField(mapping="poster_file", fileNameProperty="poster")
+     * @var File
+     * @Assert\Image(mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"})
+     */
+     private $posterFile;
 
     /**
      * @ORM\Id
@@ -88,8 +83,38 @@ class Annonce
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTime
      */
     private $updatedAt;
+
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -205,40 +230,46 @@ class Annonce
             return $this;
       }
 
-      public function setPosterFile(File $image = null)
 
-  {
+        /**
+         *
+        * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+        */
 
-    $this->imageFile = $image;
+        public function setPosterFile(File $image = null )
 
-    if ($image) {
+        {
+        
+            $this->posterFile = $image;
 
-      $this->updatedAt = new DateTime('now');
+             if ($image) {
 
-    }
-
-  }
-
-
-    public function getPosterFile(): ?File
-
-    {
-
-        return $this->posterFile;
+            $this->updatedAt = new DateTime('now');
 
     }
+        }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
 
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
+        public function getPosterFile(): ?File
 
-        return $this;
-    }
+        {
+
+            return $this->posterFile;
+
+        }
+
+
+        public function getUpdatedAt(): ?\DateTimeInterface
+        {
+            return $this->updatedAt;
+        }
+
+        public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+        {
+            $this->updatedAt = $updatedAt;
+
+            return $this;
+        }
 
    
 }

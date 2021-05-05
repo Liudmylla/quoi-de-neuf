@@ -1,7 +1,7 @@
 vich_uploader:
   db_driver: orm
   mappings:
-    poster_file:
-      uri_prefix: /images/posters
-      upload_destination: '%upload_directory%'
+    annonce_images:
+      uri_prefix: '%app.path.annonce_images%'
+      upload_destination: '%kernel.project_dir%/public%app.path.annonce_images%'
 
