@@ -8,16 +8,20 @@
     <div class="row justify-content-center">
         <div class="col-12 text-center my-5">   
 	<h1>Annonces russes</h1>
+	
     </div>
 	{% for annonce in annonces %}
-	{% if annonce.isValidated %}
+		<pre>
+			{{ dump(annonce) }}
+		</pre>
+	{#{% if annonce.isValidated %}#}
       <div class="col-12 col-md-4">
 		<div class="annonce-card">
 		
-			
+		
 			<p>Titre d'annonce: {{ annonce.titre }}</p>
 			<p>Contenue: {{ annonce.contenu }}</p>
-			<p>Catégorie: {{ annonce.category.titre}}</p>
+			{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
 			<p>Created_date:{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}</p>
 			<p>Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }}</p>
 			<p>
@@ -29,6 +33,6 @@
 		</div>
      </div>
 
-{% endif %}  
+    {#{% endif %} #} 
 	{% endfor %}
 {% endblock %}

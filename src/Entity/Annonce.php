@@ -3,13 +3,47 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+
+//Ici on importe le package Vich, que l’on utilisera sous l’alias “Vich”
+
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
- * @ORM\Entity(repositoryClass=AnnonceRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\AnnonceRepository")
+ * //On précise à l’entité que nous utiliserons l’upload du package Vich uploader
+ * @Vich\Uploadable
  */
 class Annonce
+
 {
+    
+
+
+
+      //On va créer un nouvel attribut à notre entité, qui ne sera pas lié à une colonne
+   
+        // Tu peux d’ailleurs voir que l’annotation ORM column n’est pas spécifiée car
+   
+      //On ne rajoute pas de données de type file en bdd
+   
+        /**
+   
+         * @Vich\UploadableField(mapping="poster_file", fileNameProperty="poster")
+   
+         * @var File
+   
+         */
+   
+        private $posterFile;
+   
+   
+
+
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -51,6 +85,16 @@ class Annonce
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
      */
     private $auteur;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $poster;
 
     public function getId(): ?int
     {
@@ -140,4 +184,61 @@ class Annonce
 
         return $this;
     }
+
+      /**
+       * Get the value of poster
+       */
+      public function getPoster()
+      {
+            return $this->poster;
+      }
+
+      /**
+       * Set the value of poster
+       *
+       * @return  self
+       */
+      public function setPoster($poster)
+      {
+            $this->poster = $poster;
+
+            return $this;
+      }
+
+      public function setPosterFile(File $image = null)
+
+  {
+
+    $this->imageFile = $image;
+
+    if ($image) {
+
+      $this->updatedAt = new DateTime('now');
+
+    }
+
+  }
+
+
+    public function getPosterFile(): ?File
+
+    {
+
+        return $this->posterFile;
+
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+   
 }
