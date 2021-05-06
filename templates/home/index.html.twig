@@ -4,19 +4,37 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12 text-center my-5">   
-	<h1>Annonces russes</h1>
-	
-    </div>
+<div class="row justify-content-center">
+<h1>Partagez vos nouvelles</h1>
+</div>	
+    
 	{% for annonce in annonces %}
 		
 	{#{% if annonce.isValidated %}#}
-      <div class="col-12 col-md-4">
+     
 		<div class="annonce-card">
+			<div class="card mb-3" style="max-width: 540px;">
+				<div class="row no-gutters">
+				  <div class="col-md-4">
+					<img src="{{ vich_uploader_asset(annonce, 'imageFile') }} " class="card-img" alt="sadness" />
+				
+						<a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a>
+					
+							<a href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
+					
+					
+				  </div>
+				  <div class="col-md-8">
+					<div class="card-body">
+					  <h5 class="card-title">{{ annonce.titre }}</h5>
+					  <p class="card-text">{{ annonce.contenu }}</p>
+					  <p class="card-text"><small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small></p>
+					</div>
+				  </div>
+				</div>
+			  </div>
 			<p>Titre d'annonce: {{ annonce.titre }}</p>
-			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }} " width="300px" alt="sadness" />
+			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }} " width="100px" alt="sadness" />
 			<p>Contenue: {{ annonce.contenu }}</p>
 			{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
 			<p>Created_date:{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}</p>
@@ -28,7 +46,7 @@
 			
 			</p>
 		</div>
-     </div>
+    
 
     {#{% endif %} #} 
 	{% endfor %}

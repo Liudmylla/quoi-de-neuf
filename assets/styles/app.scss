@@ -1,13 +1,22 @@
 
 // customize some Bootstrap variables
-$primary: darken(#428bca, 20%);
-$back-color: #eeaa73;
+$primary: #0195ff;
+$back-color: #3e3f3a;
 $light-color: #fffbfb;
+$fluo: #95FF01;
+$tiffany:#01FFEA;
+$magenta:#FF0195;
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 body {
-    background-color: $back-color;
+    background-color: $primary;
+    
+}
+h1 {
+    font-family: 'Merienda', cursive;
+    color: #ffffff;
 }
 
 /* ANNONCES */
