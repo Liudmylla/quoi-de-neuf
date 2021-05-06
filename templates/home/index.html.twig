@@ -7,46 +7,26 @@
 <div class="row justify-content-center">
 <h1>Partagez vos nouvelles</h1>
 </div>	
-    
 	{% for annonce in annonces %}
-		
 	{#{% if annonce.isValidated %}#}
-     
-		<div class="annonce-card">
-			<div class="card mb-3" style="max-width: 540px;">
+	<div class="annonce-card">
+			<div class="card mb-3" style="border-radius: 50px;">
 				<div class="row no-gutters">
-				  <div class="col-md-4">
+				    <div class="col-md-4">
 					<img src="{{ vich_uploader_asset(annonce, 'imageFile') }} " class="card-img" alt="sadness" />
-				
-						<a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a>
-					
-							<a href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
-					
-					
-				  </div>
-				  <div class="col-md-8">
-					<div class="card-body">
+				    </div>
+				    <div class="col-md-8">
+					  <div class="card-body">
 					  <h5 class="card-title">{{ annonce.titre }}</h5>
 					  <p class="card-text">{{ annonce.contenu }}</p>
 					  <p class="card-text"><small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small></p>
+					  {#<i class="bi bi-arrow-right"><a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a></i>#}
+					 <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
 					</div>
-				  </div>
+					</div>
 				</div>
-			  </div>
-			<p>Titre d'annonce: {{ annonce.titre }}</p>
-			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }} " width="100px" alt="sadness" />
-			<p>Contenue: {{ annonce.contenu }}</p>
-			{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
-			<p>Created_date:{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}</p>
-			<p>Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }}</p>
-			<p>
-				<a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a>
-			
-					<a href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
-			
-			</p>
-		</div>
-    
+			</div>
+		</div>			{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
 
     {#{% endif %} #} 
 	{% endfor %}
