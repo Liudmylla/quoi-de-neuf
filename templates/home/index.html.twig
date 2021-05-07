@@ -23,9 +23,9 @@
 			<p>Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }}</p>
 			<p>
 				<a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a>
-			
+			{% if is_granted("ROLE_ADMIN") %}
 					<a href="{{ path('annonce_edit', {'id': annonce.id}) }}">Modifier</a>
-			
+			{%endif%}
 			</p>
 		</div>
      </div>

@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+//use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 
 /**
  * @Route("/annonce")
@@ -66,7 +68,15 @@ class AnnonceController extends AbstractController
      * @Route("/{id}/edit", name="annonce_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Annonce $annonce): Response
+
     {
+        //if (!($this->getUser() == $annonce->getAuteur())) {
+
+            // If not the owner, throws a 403 Access Denied exception
+
+            //throw new AccessDeniedException('Only the owner can edit the annonce!');
+
+       // }
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
@@ -86,7 +96,15 @@ class AnnonceController extends AbstractController
      * @Route("/{id}", name="annonce_delete", methods={"POST"})
      */
     public function delete(Request $request, Annonce $annonce): Response
+
     {
+       // if (!($this->getUser() == $annonce->getAuteur())) {
+
+            // If not the owner, throws a 403 Access Denied exception
+
+           // throw new AccessDeniedException('Only the owner can delete the annonce!');
+
+      //  }
         if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($annonce);
