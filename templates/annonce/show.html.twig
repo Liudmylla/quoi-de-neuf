@@ -3,41 +3,64 @@
 {% block title %}Annonce{% endblock %}
 
 {% block body %}
-    <h1>Annonce</h1>
-    <button class="btn-edit">
-        <a href="{{ path('annonce_edit', {'id': annonce.id}) }}">edit</a>
-        <a href="{{ path('annonce_index') }}">back to list</a>
-    </button>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ annonce.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ annonce.titre }}</td>
-            </tr>
-            <tr>
-                <th>Contenu</th>
-                <td>{{ annonce.contenu }}</td>
-            </tr>
-            <tr>
-                <th>Created_date</th>
-                <td>{{ annonce.createdDate ? annonce.createdDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Lieux</th>
-                <td>{{ annonce.lieux }}</td>
-            </tr>
-            <tr>
-                <th>Is_validated</th>
-                <td>{{ annonce.isValidated ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+   
+<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Accueil</a>
+		</li>
+        <li class="breadcrumb-item active">le {{annonce.createdDate|date('d-m-Y')}} {{ annonce.auteur ? annonce.auteur.email : 'user inconnu' }} partagé la nouvelle {{ annonce.titre }}</li>
+        <li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Beauté</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Services</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Loisirs</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Sport</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Maison</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Amitie</a>
+		</li>
 
- 
 
-    {{ include('annonce/_delete_form.html.twig') }}
+
+</ol>
+	{#{% if annonce.isValidated %}#}
+
+	<div class="annonce-card">
+			<div class="card mb-3" style="border-radius: 50px;">
+				<div class="row no-gutters">
+				    <div class="col-md-4">
+                    {% if annonce.image %}
+		
+			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" alt="sadness" />
+		{% else %}
+		
+			<img src="{{ asset('build/exemple.png') }}"class="card-img-top" alt="sadness" />
+		{% endif %}	  
+				    </div>
+				    <div class="col-md-8">
+					  <div class="card-body">
+					  <h5 class="card-title">{{ annonce.titre }}</h5>
+					  <p class="card-text">{{ annonce.contenu }}</p>
+					  {#<p class="card-text"><small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small></p>#}
+					  {#<i class="bi bi-arrow-right"><a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a></i>#}
+					 {#<a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>#}
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>			{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
+
+
+    {#{% endif %} #} 
+
+
+   {#  {{ include('annonce/_delete_form.html.twig') }} #}
 {% endblock %}

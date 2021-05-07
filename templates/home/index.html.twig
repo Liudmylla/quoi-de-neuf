@@ -4,32 +4,58 @@
 {% endblock %}
 
 {% block body %}
-<div class="row justify-content-center">
-<h1>Partagez vos nouvelles</h1>
-</div>	
+<ol class="breadcrumb">
+<li class="breadcrumb-item active">Catégories:</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Beauté</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Services</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Loisirs</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Sport</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Maison</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Amitie</a>
+		</li>
+		
+</ol>
+<a class="row justify-content-center mb-3" href="{{ path('annonce_new') }}"><h1>Partagez vos nouvelles</h1></a>
+
+<div class="row" style="background-color: #01FFEA;border-radius: 50px;">
 	{% for annonce in annonces %}
 	{#{% if annonce.isValidated %}#}
-
-	<div class="annonce-card">
-			<div class="card mb-3" style="border-radius: 50px;">
-				<div class="row no-gutters">
-				    <div class="col-md-4">
-					<img src="{{ vich_uploader_asset(annonce, 'imageFile') }} " class="card-img" alt="sadness" />
-				    </div>
-				    <div class="col-md-8">
-					  <div class="card-body">
-					  <h5 class="card-title">{{ annonce.titre }}</h5>
-					  <p class="card-text">{{ annonce.contenu }}</p>
+	
+    <div class="col-lg-4 col-sm-6 mb-4 mt-4">
+	
+        <div class="card h-100"style="border-radius: 50px;">
+		{% if annonce.image %}
+		
+			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" alt="sadness" />
+		{% else %}
+		
+			<img src="{{ asset('build/exemple.png') }}"class="card-img-top" alt="sadness" />
+		{% endif %}	   
+					<div class="card-body pb-5">
+					  <h4 class="card-title">{{ annonce.titre|capitalize}}</h4>
+					  <p class="card-text pb-3">{{ annonce.contenu|slice(0,300) }}</p>
 					  <p class="card-text"><small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small></p>
 					  {#<i class="bi bi-arrow-right"><a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a></i>#}
 					 <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
 					</div>
-					</div>
-				</div>
-			</div>
-		</div>			{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
+				
+		</div>
+	</div>
+				{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
 
 
     {#{% endif %} #} 
 	{% endfor %}
+</div>
 {% endblock %}

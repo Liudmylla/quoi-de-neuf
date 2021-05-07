@@ -12,20 +12,34 @@ $magenta:#FF0195;
 @import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css");
 body {
-    background-color: $primary;
+    background-color: $light-color;
     
 }
 h1 {
     font-family: 'Merienda', cursive;
-    color: #ffffff;
+}
+
+
+.btn-primary {
+background-color: $primary;
+border-radius: 25px;
+color:$light-color;
+
+}
+
+.btn-primary:hover {
+    background-color: $tiffany;
+}
+
+a:hover {
+    text-decoration: none;
+    color:$tiffany;
 }
 
 /* ANNONCES */
 .annonce-card{
-    background-color: $fluo;
-  
- 
-    padding: 15px;
-    margin: 15px;
+    background-color: $tiffany;
+    padding: 16px 16px 8px 16px;
+    margin: 16px;
     border-radius: 25px;
 }

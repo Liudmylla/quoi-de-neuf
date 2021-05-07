@@ -3,9 +3,12 @@
 {% block title %}New Annonce{% endblock %}
 
 {% block body %}
-    <h1>Create new Annonce</h1>
-
+<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="{{ path('home') }}">Accueil</a>
+		</li>
+        <li class="breadcrumb-item active">Créer votre nouvelle à partager</li>
+</ol>
     {{ include('annonce/_form.html.twig') }}
 
-    <a href="{{ path('annonce_index') }}">back to list</a>
 {% endblock %}
