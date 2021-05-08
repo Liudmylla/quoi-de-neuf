@@ -35,16 +35,23 @@
     <div class="col-lg-4 col-sm-6 mb-4 mt-4">
 	
         <div class="card h-100"style="border-radius: 50px;">
-		{% if annonce.image %}
-		
-			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" alt="sadness" />
-		{% else %}
-		
-			<img src="{{ asset('build/exemple.png') }}"class="card-img-top" alt="sadness" />
-		{% endif %}	   
+			
 					<div class="card-body pb-5">
 					  <h4 class="card-title">{{ annonce.titre|capitalize}}</h4>
+					  {% if annonce.category %}  
+					  <p>Catégorie: {{ annonce.category.titre}}</p>
+					  {% else %}
+					  Catégorie: inconnue
+					  {% endif %}
 					  <p class="card-text pb-3">{{ annonce.contenu|slice(0,300) }}</p>
+					  	
+					{% if annonce.image %}
+		
+					<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" alt="sadness" />
+				{% else %}
+				
+					<img src="{{ asset('build/exemple.png') }}"class="card-img-top" alt="sadness" />
+				{% endif %}
 					  <p class="card-text"><small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small></p>
 					  {#<i class="bi bi-arrow-right"><a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a></i>#}
 					 <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
@@ -52,7 +59,7 @@
 				
 		</div>
 	</div>
-				{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
+			
 
 
     {#{% endif %} #} 

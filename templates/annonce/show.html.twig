@@ -49,11 +49,13 @@
 					  <div class="card-body">
 					  <h5 class="card-title">{{ annonce.titre }}</h5>
 					  <p class="card-text">{{ annonce.contenu }}</p>
+					  <a  href="{{ path('annonce_new') }}"><h1> Partager la votre</h1></a> 
 					  {#<p class="card-text"><small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small></p>#}
 					  {#<i class="bi bi-arrow-right"><a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a></i>#}
 					 {#<a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>#}
 					</div>
 					</div>
+					 
 				</div>
 			</div>
 		</div>			{#<p>Catégorie: {{ annonce.category.titre}}</p>#}
