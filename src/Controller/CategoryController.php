@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
@@ -55,10 +56,18 @@ class CategoryController extends AbstractController
      */
     public function show(Category $category): Response
     {
+        $annonces = $this->getDoctrine()
+        ->getRepository(Annonce::class)
+        ->findBy(['category'=>$category]);
+
         return $this->render('category/show.html.twig', [
+            'annonces'=> $annonces,
             'category' => $category,
+         
         ]);
     }
+
+   
 
     /**
      * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})

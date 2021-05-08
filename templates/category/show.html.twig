@@ -1,26 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category{% endblock %}
+{% block title %}Annonce par Catégories
+{% endblock %}
 
 {% block body %}
-    <h1>Category</h1>
+<ol class="breadcrumb">
+<li class="breadcrumb-item active">Catégories:</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('category_show', {'id': 1}) }}">Beauté</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('category_show', {'id': 2}) }}">Services</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('category_show', {'id': 3}) }}">Loisirs</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('category_show', {'id': 4}) }}">Sport</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('category_show', {'id': 5}) }}">Maison</a>
+		</li>
+		<li class="breadcrumb-item">
+			<a href="{{ path('category_show', {'id': 6}) }}">Amitie</a>
+		</li>
+		
+</ol>
+<a class="row justify-content-center mb-3" href="{{ path('annonce_new') }}"><h1> {{ category.titre}}</h1></a>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ category.titre }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('category_index') }}">back to list</a>
-
-    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-
-    {{ include('category/_delete_form.html.twig') }}
+<div class="row" style="background-color: wheat;border-radius: 50px;">
+	{% for annonce in annonces %}
+	{#{% if annonce.isValidated %}#}
+	
+    <div class="col-lg-4 col-sm-6 mb-4 mt-4">
+        <div class="card h-100"style="border-radius: 50px;">
+		{% if annonce.image %}
+			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" alt="sadness" />
+		{% else %}
+		
+			<img src="{{ asset('build/exemple.png') }}"class="card-img-top" alt="sadness" />
+		{% endif %}	   
+					<div class="card-body pb-5">
+					  <h4 class="card-title">{{ annonce.titre|capitalize}}</h4>
+					  <p class="card-text pb-3">{{ annonce.contenu|slice(0,300) }}</p>
+					  <p class="card-text"><small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small></p>
+                      <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
+					</div>
+		</div>
+	</div>
+    {#{% endif %} #} 
+    {% else %}
+    <h1 style="padding: 50px;">Pas de nouvelles? Bonne nouvelle!</h1>
+    <a  href="{{ path('annonce_new') }}"><h1> Partager la votre</h1></a>  
+	{% endfor %}
+</div>
 {% endblock %}
