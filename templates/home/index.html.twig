@@ -5,26 +5,12 @@
 
 {% block body %}
 <ol class="breadcrumb">
-<li class="breadcrumb-item active">Catégories:</li>
-		<li class="breadcrumb-item">
-			<a href="{{ path('category_show', {'id': 1}) }}">Beauté</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="{{ path('category_show', {'id': 2}) }}">Services</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="{{ path('category_show', {'id': 3}) }}">Loisirs</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="{{ path('category_show', {'id': 4}) }}">Sport</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="{{ path('category_show', {'id': 5}) }}">Maison</a>
-		</li>
-		<li class="breadcrumb-item">
-			<a href="{{ path('category_show', {'id': 6}) }}">Amitie</a>
-		</li>
-		
+	<li class="breadcrumb-item active">Catégories:</li>
+{% for category in categories %}
+<li class="breadcrumb-item">
+	<a href="{{ path('category_show', {'id': category.id}) }}">{{category.titre}}</a>
+</li>
+{% endfor %}
 </ol>
 <a class="row justify-content-center mb-3" href="{{ path('annonce_new') }}"><h1>Partagez vos nouvelles</h1></a>
 
@@ -34,27 +20,26 @@
 	
     <div class="col-lg-4 col-sm-6 mb-4 mt-4">
 	
-        <div class="card h-100"style="border-radius: 50px;">
-			
+        <div class="card h-100 "style="border-radius: 50px;">
 					<div class="card-body pb-5">
-					  <h4 class="card-title">{{ annonce.titre|capitalize}}</h4>
+					  <h4 class="card-title text-center">{{ annonce.titre}}</h4>
 					  {% if annonce.category %}  
-					  <p>Catégorie: {{ annonce.category.titre}}</p>
+					  <p class="card-header">Catégorie: / <a href="{{ path('category_show', {'id': annonce.category.id}) }}">{{annonce.category.titre}}</a></p>
 					  {% else %}
 					  Catégorie: inconnue
 					  {% endif %}
-					  <p class="card-text pb-3">{{ annonce.contenu|slice(0,300) }}</p>
-					  	
+					  <small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small>	  	
 					{% if annonce.image %}
 		
-					<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" alt="sadness" />
+					<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" height=210px alt="sadness" />
 				{% else %}
 				
-					<img src="{{ asset('build/exemple.png') }}"class="card-img-top" alt="sadness" />
+					<img src="{{ asset('build/exemple.png') }}"class="card-img-top" height=210px alt="sadness" />
 				{% endif %}
-					  <p class="card-text"><small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small></p>
-					  {#<i class="bi bi-arrow-right"><a href="{{ path('annonce_show', {'id': annonce.id}) }}">Voir plus</a></i>#}
-					 <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
+					  <p class="card-text pb-3">{{ annonce.contenu|slice(0,200) }}</p>
+					  <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
+					
+					 
 					</div>
 				
 		</div>

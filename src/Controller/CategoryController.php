@@ -54,7 +54,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id}", name="category_show", methods={"GET"})
      */
-    public function show(Category $category): Response
+    public function show(Category $category,CategoryRepository $categoryRepository): Response
     {
         $annonces = $this->getDoctrine()
         ->getRepository(Annonce::class)
@@ -63,6 +63,7 @@ class CategoryController extends AbstractController
         return $this->render('category/show.html.twig', [
             'annonces'=> $annonces,
             'category' => $category,
+            'categories' => $categoryRepository->findBy([], ['id' => 'ASC'])
          
         ]);
     }

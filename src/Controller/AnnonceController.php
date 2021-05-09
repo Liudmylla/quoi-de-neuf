@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,10 +58,11 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/{id}", name="annonce_show", methods={"GET"})
      */
-    public function show(Annonce $annonce): Response
+    public function show(Annonce $annonce,CategoryRepository $categoryRepository): Response
     {
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
+            'categories' => $categoryRepository->findBy([], ['id' => 'ASC'])
         ]);
     }
 
