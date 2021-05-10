@@ -49,5 +49,9 @@
 
     {#{% endif %} #} 
 	{% endfor %}
+	
 </div>
+   <ul class="pagination justify-content-center">
+		{{ knp_pagination_render(annonces) }}
+	</ul>
 {% endblock %}
