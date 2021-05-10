@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
-use App\Repository\AnnonceRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +15,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request, PaginatorInterface $paginator,AnnonceRepository $annonceRepository, CategoryRepository $categoryRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, CategoryRepository $categoryRepository): Response
     {
 
-        $donnees = $this->getDoctrine()->getRepository(Annonce::class)->findBy([],['created_date' => 'desc']);
+        $donnees = $this->getDoctrine()
+        ->getRepository(Annonce::class)
+        ->findBy([],['created_date' => 'desc']);
 
         $annonces = $paginator->paginate(
             $donnees, // Requête contenant les données à paginer (ici nos articles)
