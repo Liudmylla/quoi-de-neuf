@@ -33,8 +33,9 @@
 					  <div class="card-body">
 					  <h5 class="card-title">{{ annonce.titre }}</h5>
 					  <p class="card-text">{{ annonce.contenu }}</p>
-  					<p class="card-footer">La nouvelle de la catégorie {{annonce.category.titre}} crée par: {{annonce.auteur ? annonce.auteur.email : 'User inconnu' }} le {{annonce.createdDate|date('d-m-Y ')}} </p>
-					
+  					<p class="card-footer">
+					  La nouvelle de la catégorie {{annonce.category ? annonce.category.titre : 'Catégorie inconnu' }}
+					   crée par: {{annonce.auteur ? annonce.auteur.email : 'User inconnu' }} le {{annonce.createdDate|date('d-m-Y ')}} </p>
 				</div>
 			</div>
 				</div>

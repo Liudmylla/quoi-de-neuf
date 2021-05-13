@@ -71,6 +71,7 @@ class AdminUserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
+
          //Create a custom form without the password field (to keep the last untouched)
         //The rest of fields are the same as in UserType
         $form = $this->createFormBuilder($user)
@@ -87,9 +88,11 @@ class AdminUserController extends AbstractController
         ])
         ->add('pseudo')
         ->getForm();
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+          
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_user_index');
