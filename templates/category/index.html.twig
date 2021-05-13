@@ -3,14 +3,15 @@
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
+    <h1 class="row justify-content-center mb-3">Gestion des catégories</h1>
+        <a href="{{ path('category_new') }}">Créer une nouvelle catégorie</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Titre</th>
-                <th>actions</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +20,7 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.titre }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('category_edit', {'id': category.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('category_new') }}">Create new</a>
 {% endblock %}

@@ -24,6 +24,15 @@
 					</button>
 					<div class="collapse navbar-collapse" id="navbarResponsive">
 						<ul class="navbar-nav ml-auto">
+								{# Admin only #}
+								{% if is_granted('ROLE_ADMIN') %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('admin_user_index') }}">Utilisateurs</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('category_index') }}">Catégories</a>
+								</li>
+								{% endif %}
 							{% if app.user %}
 							{% if is_granted('ROLE_ADMIN') %}
 							<li class="nav-item">
@@ -35,7 +44,7 @@
 							
 						    {% endif %}
 								<li class="nav-item">
-									<a class="nav-link" href="{{ path('annonce_index') }}">Mes nouvelles</a>
+									<a class="nav-link" href="{{ path('annonce_index') }}">Nouvelles</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
@@ -44,6 +53,7 @@
 									<span style="display: block;padding: 0.5rem 1rem;">Hello,{{ app.user.email }}!</span>
 								</li>
 							{% else %}
+								
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('app_login') }}">Login</a>
 								</li>
@@ -68,11 +78,19 @@
           {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
             <!-- Footer-->
-			<footer class="py-5 bg-dark">
-				<div class="container">
-					<p class="m-0 text-center text-white">Copyright &copy; Quoi_de_neuf 2021</p>
+<footer class="py-4 bg-dark">
+		<div class="container">
+			<div class="d-flex align-items-center justify-content-between small">
+				<div class="text-muted">Copyright &copy; Quoi_de_neuf 2021</div>
+				<div>
+					<a href="{{ path('contact') }}">Contact</a>
 				</div>
-			</footer>
+				<div class="text-muted">
+					Webmaster: <a href="https://www.linkedin.com/in/liudmyla-duvivier-05570b15a/" target="_blank">Liudmyla Duvivier</a>
+				</div>
+			</div>
+		</div>
+	</footer>
              <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
         {% endblock %}
