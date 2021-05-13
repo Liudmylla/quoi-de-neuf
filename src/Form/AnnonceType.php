@@ -4,17 +4,19 @@ namespace App\Form;
 
 use App\Entity\Annonce;
 use Symfony\Component\Form\AbstractType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnnonceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
         $builder
             ->add('titre')
-            ->add('contenu')
+            ->add('contenu', CKEditorType::class)
             ->add('category',null, ["choice_label"=>"titre"])
             ->add('lieux')
             ->add('is_validated')

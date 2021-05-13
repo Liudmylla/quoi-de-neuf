@@ -31,6 +31,17 @@ color:$light-color;
     background-color: $tiffany;
 }
 
+.btn-delete {
+    background-color: $back-color;
+    border-radius: 25px;
+    color:$light-color;
+    
+    }
+    
+    .btn-delete:hover {
+        background-color: $magenta;
+    }
+
 a:hover {
     text-decoration: none;
     color:$tiffany;

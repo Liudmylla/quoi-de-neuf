@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -70,7 +71,22 @@ class AdminUserController extends AbstractController
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+         //Create a custom form without the password field (to keep the last untouched)
+        //The rest of fields are the same as in UserType
+        $form = $this->createFormBuilder($user)
+        ->add('email')
+        ->add('roles', ChoiceType::class, [
+            'choices' => [
+                'Utilisateur' => 'ROLE_USER',
+                'Moderateur' => 'ROLE_MODERATOR',
+                'Administrateur' => 'ROLE_ADMIN'
+            ],
+            'expanded' => true,
+            'multiple' => true ,
+            'label' => 'Rôles'
+        ])
+        ->add('pseudo')
+        ->getForm();
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
