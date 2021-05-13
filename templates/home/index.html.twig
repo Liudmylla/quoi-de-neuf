@@ -23,23 +23,26 @@
         <div class="card h-100 "style="border-radius: 50px;">
 					<div class="card-body pb-5">
 					  <h4 class="card-title text-center">{{ annonce.titre}}</h4>
-					  {% if annonce.category %}  
+					    {% if annonce.category %}  
 					  <p class="card-header">Catégorie: / <a href="{{ path('category_show', {'id': annonce.category.id}) }}">{{annonce.category.titre}}</a></p>
 					  {% else %}
-					  Catégorie: inconnue
+					  <p class="card-header"> Catégorie: inconnue</p>
 					  {% endif %}
-					  <small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small>	  	
-					{% if annonce.image %}
+					  	{% if annonce.image %}
 		
 					<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" height=210px alt="sadness" />
 				{% else %}
 				
 					<img src="{{ asset('build/exemple.png') }}"class="card-img-top" height=210px alt="sadness" />
 				{% endif %}
-					  <p class="card-text pb-3">{{ annonce.contenu|raw }}</p>
-					  <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
+
 					
-					 
+					  <small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.pseudo : 'User inconnu' }} </small>	  	
+					
+					 {# <p class="card-text pb-3">{{ annonce.contenu|raw }}</p>#}
+					 <div class="row justify-content-center">
+					  <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
+					 	</div>
 					</div>
 				
 		</div>

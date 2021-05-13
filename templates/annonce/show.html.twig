@@ -20,7 +20,7 @@
 	<div class="annonce-card">
 			<div class="card mb-3" style="border-radius: 50px;">
 				<div class="row no-gutters">
-				    <div class="col-md-4">
+				    <div class="col-md-4 bg-dark text-white">
                     {% if annonce.image %}
 		
 			<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" alt="sadness" />
@@ -28,14 +28,15 @@
 		
 			<img src="{{ asset('build/exemple.png') }}"class="card-img-top" alt="sadness" />
 		{% endif %}	  
+		<p class="card-footer">
+					  La nouvelle de la catégorie {{annonce.category ? annonce.category.titre : 'Catégorie inconnu' }}
+					   crée par: {{annonce.auteur ? annonce.auteur.email : 'User inconnu' }} le {{annonce.createdDate|date('d-m-Y ')}} </p>
 				    </div>
 				    <div class="col-md-8">
 					  <div class="card-body">
 					  <h5 class="card-title">{{ annonce.titre }}</h5>
 					  <p class="card-text">{{ annonce.contenu|raw }}</p>
-  					<p class="card-footer">
-					  La nouvelle de la catégorie {{annonce.category ? annonce.category.titre : 'Catégorie inconnu' }}
-					   crée par: {{annonce.auteur ? annonce.auteur.email : 'User inconnu' }} le {{annonce.createdDate|date('d-m-Y ')}} </p>
+  					
 				</div>
 			</div>
 				</div>
