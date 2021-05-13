@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+<ol class="breadcrumb">
+	<li class="breadcrumb-item active">Catégories:</li>
+{% for category in categories %}
+<li class="breadcrumb-item">
+	<a href="{{ path('category_show', {'id': category.id}) }}">{{category.titre}}</a>
+</li>
+{% endfor %}
+</ol>
+{% for message in app.flashes('success') %}
+			<div class="alert alert-success">{{message}}</div>
+{% endfor %}
 <div class="bg-white p-5 contact-form">
     <div class="form-group">
 {{ form_start(form) }}

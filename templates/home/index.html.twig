@@ -36,7 +36,7 @@
 				
 					<img src="{{ asset('build/exemple.png') }}"class="card-img-top" height=210px alt="sadness" />
 				{% endif %}
-					  <p class="card-text pb-3">{{ annonce.contenu|slice(0,200) }}</p>
+					  <p class="card-text pb-3">{{ annonce.contenu|raw }}</p>
 					  <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
 					
 					 
