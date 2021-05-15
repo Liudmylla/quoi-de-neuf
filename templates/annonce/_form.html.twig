@@ -1,7 +1,9 @@
 
 
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    
+
+    {% if is_granted('ROLE_ADMIN') %}
+  {{ form_widget(form.is_validated) }}
+  {% endif %}
     <button class="btn btn-primary">{{ button_label|default('Partager') }}</button>
 {{ form_end(form) }}

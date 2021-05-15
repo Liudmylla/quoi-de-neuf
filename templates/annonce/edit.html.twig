@@ -3,10 +3,22 @@
 {% block title %}Edit Annonce{% endblock %}
 
 {% block body %}
-    <h1>Edit Annonce</h1>
+
+<ol class="breadcrumb">
+<li class="breadcrumb-item">
+		<a href="{{ path('home') }}">Accueil</a>
+	</li>
+	<li class="breadcrumb-item active">Catégories:</li>
+{% for category in categories %}
+<li class="breadcrumb-item">
+	<a href="{{ path('category_show', {'id': category.id}) }}">{{category.titre}}</a>
+</li>
+{% endfor %}
+</ol>
+   <h1  class="row justify-content-center mb-3" >Modifier la nouvelle "{{annonce.titre}}"</h1>
 
     {{ include('annonce/_form.html.twig', {'button_label': 'Update'}) }}
-
+  <a href="{{ path('home') }}">Revenir à l'acceuil</a>
     {{ include('annonce/_delete_form.html.twig') }}
 
 {% endblock %}

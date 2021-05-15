@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Category;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use App\Repository\CategoryRepository;
@@ -21,12 +22,16 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/", name="annonce_index", methods={"GET"})
      */
-    public function index(AnnonceRepository $annonceRepository): Response
+    public function index(AnnonceRepository $annonceRepository,CategoryRepository $categoryRepository): Response
     {
         return $this->render('annonce/index.html.twig', [
             'annonces' => $annonceRepository->findAll(),
+            'categories' => $categoryRepository->findBy([], ['id' => 'ASC'])
         ]);
     }
+
+  
+
 
     /**
      * @Route("/new", name="annonce_new", methods={"GET","POST"})
@@ -40,6 +45,7 @@ class AnnonceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $annonce->setCreatedDate(new \DateTime());
+            $annonce->setUpdatedAt( new \DateTime());
             $currentUser = $this->getUser();
             $annonce->setAuteur($currentUser);
             $annonce->setIsValidated(false);
@@ -69,7 +75,7 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/{id}/edit", name="annonce_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Annonce $annonce): Response
+    public function edit(Request $request, Annonce $annonce, CategoryRepository $categoryRepository): Response
 
     {
         //if (!($this->getUser() == $annonce->getAuteur())) {
@@ -79,10 +85,12 @@ class AnnonceController extends AbstractController
             //throw new AccessDeniedException('Only the owner can edit the annonce!');
 
        // }
+        $annonce->setUpdatedAt( new \DateTime());
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('home');
@@ -91,6 +99,7 @@ class AnnonceController extends AbstractController
         return $this->render('annonce/edit.html.twig', [
             'annonce' => $annonce,
             'form' => $form->createView(),
+            'categories'=>$categoryRepository->findBy([], ['id' => 'ASC']),
         ]);
     }
 

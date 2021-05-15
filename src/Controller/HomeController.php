@@ -20,7 +20,7 @@ class HomeController extends AbstractController
 
         $donnees = $this->getDoctrine()
         ->getRepository(Annonce::class)
-        ->findBy([],['created_date' => 'desc']);
+        ->findBy([],["updatedAt"=>"desc"]);
 
         $annonces = $paginator->paginate(
             $donnees, // Requête contenant les données à paginer (ici nos articles)

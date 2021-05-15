@@ -19,7 +19,7 @@
 
 <div class="row" style="background-color: wheat;border-radius: 50px;">
 	{% for annonce in annonces %}
-	{#{% if annonce.isValidated %}#}
+	{% if annonce.isValidated %}
 	
     <div class="col-lg-4 col-sm-6 mb-4 mt-4">
         <div class="card h-100"style="border-radius: 50px;">
@@ -31,8 +31,11 @@
 					  <img src="{{ asset('build/exemple.png') }}"class="card-img-top"height=210px alt="sadness" />
 				  {% endif %}
 					  <small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small>	  	
- 					<div class="row justify-content-center">
+ 					<div class="row justify-content-around mt-4">
 					  <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
+				  {% if annonce.auteur == app.user or is_granted('ROLE_ADMIN') %}
+						  	<a href="{{ path('annonce_edit', {'id': annonce.id}) }}"><i class="bi bi-pencil-square"></i></a> 
+					  {% endif %} 
 					 	</div>
 									 
 					  
@@ -40,7 +43,7 @@
 					</div>
 		</div>
 	</div>
-    {#{% endif %} #} 
+    {% endif %} 
     {% else %}
     <h1 style="padding: 50px;">Pas de nouvelles? Bonne nouvelle!</h1>
     <a  href="{{ path('annonce_new') }}"><h1> Partager la votre</h1></a>  

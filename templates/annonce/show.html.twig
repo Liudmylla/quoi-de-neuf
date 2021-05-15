@@ -15,7 +15,7 @@
 	</li>
 	{% endfor %}
 	</ol>
-	{#{% if annonce.isValidated %}#}
+
 
 	<div class="annonce-card">
 			<div class="card mb-3" style="border-radius: 50px;">
@@ -31,6 +31,12 @@
 		<p class="card-footer">
 					  La nouvelle de la catégorie {{annonce.category ? annonce.category.titre : 'Catégorie inconnu' }}
 					   crée par: {{annonce.auteur ? annonce.auteur.email : 'User inconnu' }} le {{annonce.createdDate|date('d-m-Y ')}} </p>
+					    <div class="row justify-content-around mb-2">
+							  <a href="{{ path('home', {'id': annonce.id}) }}"><i class="bi bi-arrow-left"></i></a>
+					   {% if annonce.auteur == app.user or is_granted('ROLE_ADMIN') %}
+						  	<a href="{{ path('annonce_edit', {'id': annonce.id}) }}"><i class="bi bi-pencil-square"></i></a> 
+					  {% endif %} 
+					  </div>
 				    </div>
 				    <div class="col-md-8">
 					  <div class="card-body">
@@ -41,12 +47,14 @@
 			</div>
 				</div>
 			</div>
+			  <div class="row justify-content-around">
 			<a  href="{{ path('annonce_new') }}"><h1> Partager la votre</h1></a> 
+
 		</div>			
+		</div>			
+    
+
+    
 
 
-    {#{% endif %} #} 
-
-
-   {#  {{ include('annonce/_delete_form.html.twig') }} #}
 {% endblock %}

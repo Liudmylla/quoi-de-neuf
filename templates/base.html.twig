@@ -24,36 +24,45 @@
 					</button>
 					<div class="collapse navbar-collapse" id="navbarResponsive">
 						<ul class="navbar-nav ml-auto">
-							{% if app.user %}
+							{% if app.user and is_granted('ROLE_ADMIN')  %}
 								{# Admin only #}
-								{% if is_granted('ROLE_ADMIN') %}
+								
+								<li class="nav-item">
+									<span style="display: block;padding: 0.5rem 1rem;">Salut admin {{ app.user.pseudo }}!</span>
+								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('admin_user_index') }}">Utilisateurs</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('admin_category_index') }}">Catégories</a>
 								</li>
-								{% endif %}
-							
 								<li class="nav-item">
-									<a class="nav-link" href="{{ path('annonce_index') }}">Nouvelles</a>
+									<a class="nav-link" href="{{ path('admin_annonce') }}">A valider</a>
 								</li>
+							
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
 								</li>
-								<li class="nav-item">
-									<span style="display: block;padding: 0.5rem 1rem;">Hello,{{ app.user.email }}!</span>
+								{% elseif app.user %}
+									<li class="nav-item">
+									<span style="display: block;padding: 0.5rem 1rem;">Salut user {{ app.user.pseudo }}!</span>
 								</li>
-							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('annonce_index') }}">Mes annonces</a>
+								</li>
 								
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+								</li>
+								{% else %}
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('app_login') }}">Login</a>
 								</li>
 								<li class="nav-item">
 									<a class="nav-link" href="{{ path('app_register') }}">Sign in</a>
 								</li>
-
-							{% endif %}
+								{% endif %}		
+						
 						
 						</ul>
 					</div>

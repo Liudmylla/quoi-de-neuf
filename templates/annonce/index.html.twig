@@ -1,44 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonces russes {% endblock %}
+{% block title %}Mes annonces
+{% endblock %}
 
 {% block body %}
+<ol class="breadcrumb">
+<li class="breadcrumb-item">
+		<a href="{{ path('home') }}">Accueil</a>
+	</li>
+	<li class="breadcrumb-item active">Catégories:</li>
+{% for category in categories %}
+<li class="breadcrumb-item">
+	<a href="{{ path('category_show', {'id': category.id}) }}">{{category.titre}}</a>
+</li>
+{% endfor %}
+</ol>
+ <h1  class="row justify-content-center mb-3" > Mes nouvelles </h1>
 
-    <h1>Annonce index</h1>
-  {#<img src="{{ asset('build/test.png') }}" alt=""/>#}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Contenu</th>
-                <th>Created_date</th>
-                <th>Lieux</th>
-                <th>Is_validated</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for annonce in annonces %}
-            <tr>
-                <td>{{ annonce.id }}</td>
-                <td>{{ annonce.titre }}</td>
-                <td>{{ annonce.contenu }}</td>
-                <td>{{ annonce.createdDate ? annonce.createdDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ annonce.lieux }}</td>
-                <td>{{ annonce.isValidated ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('annonce_show', {'id': annonce.id}) }}">show</a>
-                    <a href="{{ path('annonce_edit', {'id': annonce.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="row" style="background-color: wheat;border-radius: 50px;">
+	{% for annonce in annonces %}
 
-    <a href="{{ path('annonce_new') }}">Create new</a>
+	{% if annonce.isValidated %}
+    {% if app.user.email == annonce.auteur.email %}
+        
+ 
+	
+    <div class="col-lg-4 col-sm-6 mb-4 mt-4">
+	
+        <div class="card h-100 "style="border-radius: 50px;">
+					<div class="card-body pb-5">
+					  <h4 class="card-title text-center">{{ annonce.titre}}</h4>
+					    {% if annonce.category %}  
+					  <p class="card-header">Catégorie: / <a href="{{ path('category_show', {'id': annonce.category.id}) }}">{{annonce.category.titre}}</a></p>
+					  {% else %}
+					  <p class="card-header"> Catégorie: inconnue</p>
+					  {% endif %}
+					  	{% if annonce.image %}
+		
+					<img src="{{ vich_uploader_asset(annonce, 'imageFile') }}" class="card-img-top" height=210px alt="sadness" />
+				{% else %}
+				
+					<img src="{{ asset('build/exemple.png') }}"class="card-img-top" height=210px alt="sadness" />
+				{% endif %}
+					  <small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.pseudo : 'User inconnu' }} </small>	  	
+				
+					 <div class="row justify-content-around mt-4">
+					  <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
+					  
+							<a href="{{ path('annonce_edit', {'id': annonce.id}) }}"><i class="bi bi-pencil-square"></i></a> 
+				
+					 	</div>
+					</div>
+		</div>
+	</div>
+			
+   {% endif %}
+
+    {% endif %} 
+	{% endfor %}
+	
+</div>
+  
 {% endblock %}

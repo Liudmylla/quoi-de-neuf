@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Annonce[]    findAll()
  * @method Annonce[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AnnonceRepository extends ServiceEntityRepository
+class AdminAnnonceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -22,12 +22,12 @@ class AnnonceRepository extends ServiceEntityRepository
     /**
      * @return Annonce[] Returns an array of Annonce objects
      */
-    public function findByAuteur($value)
+    public function findNotValid($value)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.auteur = :val')
+            ->andWhere('a.isValidated = :val')
             ->setParameter('val', $value)
-            ->orderBy('a.updated_at', 'ASC')
+            ->orderBy('a.created_date', 'ASC')
             ->getQuery()
             ->getResult()
         ;
