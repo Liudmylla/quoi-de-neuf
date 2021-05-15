@@ -1,9 +1,18 @@
-
-
-{{ form_start(form) }}
-
-    {% if is_granted('ROLE_ADMIN') %}
-  {{ form_widget(form.is_validated) }}
+  {{ form_start(form) }}
+  
+  {% if is_granted('ROLE_ADMIN') %}
+  {{ form_row(form.is_validated) }}
   {% endif %}
-    <button class="btn btn-primary">{{ button_label|default('Partager') }}</button>
+
+ {{ form_row(form.titre) }}
+  {{ form_row(form.contenu) }}
+   {{ form_row(form.category) }}
+    {{ form_row(form.lieux) }}
+     {{ form_row(form.imageFile) }}
+   <button class="btn btn-primary">{{ button_label|default('Créer') }}</button> 
+
 {{ form_end(form) }}
+  
+
+
+

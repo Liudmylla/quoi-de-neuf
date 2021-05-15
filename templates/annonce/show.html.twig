@@ -7,8 +7,10 @@
 	<li class="breadcrumb-item">
 		<a href="{{ path('home') }}">Accueil</a>
 	</li>
+		<li class="breadcrumb-item">
+		<a href="{{ path('contact') }}">Contact</a>
+	</li>
 	<li class="breadcrumb-item active">Catégories</li>
-	
 	{% for category in categories %}
 	<li class="breadcrumb-item">
 		<a href="{{ path('category_show', {'id': category.id}) }}">{{category.titre}}</a>
@@ -48,7 +50,7 @@
 				</div>
 			</div>
 			  <div class="row justify-content-around">
-			<a  href="{{ path('annonce_new') }}"><h1> Partager la votre</h1></a> 
+			<a  href="{{ path('annonce_new') }}"><h1> Partage la tienne</h1></a> 
 
 		</div>			
 		</div>			

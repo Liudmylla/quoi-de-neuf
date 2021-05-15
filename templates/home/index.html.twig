@@ -5,14 +5,23 @@
 
 {% block body %}
 <ol class="breadcrumb">
-	<li class="breadcrumb-item active">Catégories:</li>
+<li class="breadcrumb-item">
+		<a href="{{ path('contact') }}">Contact</a>
+	</li>
+	<li class="breadcrumb-item active">Accueil</li>
 {% for category in categories %}
 <li class="breadcrumb-item">
 	<a href="{{ path('category_show', {'id': category.id}) }}">{{category.titre}}</a>
 </li>
 {% endfor %}
 </ol>
-<a class="row justify-content-center mb-3" href="{{ path('annonce_new') }}"><h1>Partagez vos nouvelles</h1></a>
+<a class="row justify-content-center mb-3" href="{{ path('annonce_new') }}">
+<h1>Partage tes nouvelles
+{% if app.user %}
+, {{app.user.pseudo}}	
+{% endif %}
+
+</h1></a>
 
 <div class="row" style="background-color: wheat;border-radius: 50px;">
 	{% for annonce in annonces %}

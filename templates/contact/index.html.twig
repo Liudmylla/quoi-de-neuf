@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 <ol class="breadcrumb">
-	<li class="breadcrumb-item active">Catégories:</li>
+   <li class="breadcrumb-item">
+		<a href="{{ path('home') }}">Accueil</a>
+	</li>
+	<li class="breadcrumb-item active">Contact</li>
 {% for category in categories %}
 <li class="breadcrumb-item">
 	<a href="{{ path('category_show', {'id': category.id}) }}">{{category.titre}}</a>
