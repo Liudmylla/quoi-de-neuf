@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Entity\Category;
 use App\Form\AnnonceType;
+use Symfony\Component\Mime\Email;
 use App\Repository\AnnonceRepository;
 use App\Repository\CategoryRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 //use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
@@ -30,13 +32,10 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-  
-
-
     /**
      * @Route("/new", name="annonce_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,MailerInterface $mailer): Response
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -51,7 +50,13 @@ class AnnonceController extends AbstractController
             $annonce->setIsValidated(false);
             $entityManager->persist($annonce);
             $entityManager->flush();
-
+            $message = (new Email())
+            ->from('from@example.com')
+            ->to('to@example.com')
+            ->subject('Une nouvelle à valider')
+            ->text('Utilisateur a partagé une nouvelle');
+            $mailer->send($message);
+            $this->addFlash('success', 'Votre nouvelle va etre publié apres la verification de la contenu par un moderateur');
             return $this->redirectToRoute('home');
         }
 
@@ -75,7 +80,7 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/{id}/edit", name="annonce_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Annonce $annonce, CategoryRepository $categoryRepository): Response
+    public function edit(Request $request, Annonce $annonce, CategoryRepository $categoryRepository, MailerInterface $mailer): Response
 
     {
         //if (!($this->getUser() == $annonce->getAuteur())) {
@@ -92,6 +97,13 @@ class AnnonceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $this->getDoctrine()->getManager()->flush();
+            $message = (new Email())
+            ->from('from@example.com')
+            ->to('to@example.com')
+            ->subject('Une nouvelle à valider')
+            ->text('Utilisateur a modifié une nouvelle');
+            $mailer->send($message);
+            $this->addFlash('success', 'Votre nouvelle a bien été modifié et  va etre publié apres la verification de la contenu par un moderateur');
 
             return $this->redirectToRoute('home');
         }

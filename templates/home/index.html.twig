@@ -4,17 +4,38 @@
 {% endblock %}
 
 {% block body %}
+
+{{ form_start(form) }}
+ 
+ <div class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-2">
+    <div class="input-group">
+{{ form_widget(form) }}
+             <div class="input-group-append">
+		 <button class="btn btn-primary" ><i class="bi bi-search"></i></button>
+          </div>
+          </div>
+          </div>
+  
+{{ form_end(form) }}
+
+ 
 <ol class="breadcrumb">
+<li class="breadcrumb-item">
+		<a href="{{ path('home') }}">Accueil</a>
+	</li>
 <li class="breadcrumb-item">
 		<a href="{{ path('contact') }}">Contact</a>
 	</li>
-	<li class="breadcrumb-item active">Accueil</li>
+
 {% for category in categories %}
 <li class="breadcrumb-item">
 	<a href="{{ path('category_show', {'id': category.id}) }}">{{category.titre}}</a>
 </li>
 {% endfor %}
 </ol>
+{% for message in app.flashes('success') %}
+			<div class="alert alert-success">{{message}}</div>
+{% endfor %}
 <a class="row justify-content-center mb-3" href="{{ path('annonce_new') }}">
 <h1>Partage tes nouvelles
 {% if app.user %}
@@ -43,7 +64,7 @@
 				
 					<img src="{{ asset('build/exemple.png') }}"class="card-img-top" height=210px alt="sadness" />
 				{% endif %}
-					  <small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.pseudo : 'User inconnu' }} </small>	  	
+					  <small class="text-muted">Le {{ annonce.updatedAt ? annonce.updatedAt|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.pseudo : 'User inconnu' }} </small>	  	
 				
 					 <div class="row justify-content-around mt-4">
 					  <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
