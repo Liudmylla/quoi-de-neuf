@@ -100,6 +100,7 @@ class AnnonceController extends AbstractController
             $annonce->setIsValidated(false);
             $entityManager->persist($annonce);
             $entityManager->flush();
+
             $message = (new Email())
             ->from('from@example.com')
             ->to('to@example.com')
