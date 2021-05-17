@@ -101,6 +101,7 @@ class AnnonceController extends AbstractController
             $entityManager->persist($annonce);
             $entityManager->flush();
 
+            
             $message = (new Email())
             ->from('from@example.com')
             ->to('to@example.com')

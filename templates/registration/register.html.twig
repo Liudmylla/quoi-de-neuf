@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'inscrire{% endblock %}
 
 {% block body %}
+<ol class="breadcrumb">
+<li class="breadcrumb-item">
+		<a href="{{ path('home') }}">Accueil</a>
+	</li>
+<li class="breadcrumb-item">
+		<a href="{{ path('contact') }}">Contact</a>
+	</li>
+    	<li class="breadcrumb-item active">S'inscrire</li>
+ </ol>
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    {# <h1>Inscrivez-vous pour partager vos nouvelles</h1> #}
 
     {{ form_start(registrationForm) }}
      {{ form_row(registrationForm.pseudo) }}
@@ -16,6 +25,7 @@
             label: 'Password'
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-primary ">S'inscrire</button>
+      <p>  Déjà inscrit? <a href="{{ path('app_login') }}">Connectez-vous</a></p>
     {{ form_end(registrationForm) }}
 {% endblock %}
