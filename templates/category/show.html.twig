@@ -33,8 +33,10 @@
 					  <small class="text-muted">{{ annonce.createdDate ? annonce.createdDate|date('d-m-Y ') : '' }}  Auteur:{{ annonce.auteur ? annonce.auteur.email : 'User inconnu' }} </small>	  	
  					<div class="row justify-content-around mt-4">
 					  <a href="{{ path('annonce_show', {'id': annonce.id}) }}"><i class="bi bi-arrow-right"></i></a>
-				  {% if annonce.auteur == app.user or is_granted('ROLE_ADMIN') %}
-						  	<a href="{{ path('annonce_edit', {'id': annonce.id}) }}"><i class="bi bi-pencil-square"></i></a> 
+				 {% if is_granted('ROLE_ADMIN') %}
+							<a href="{{ path('admin_edit', {'id': annonce.id}) }}"><i class="bi bi-pencil-square"></i></a> 
+							 {% elseif annonce.auteur == app.user  %}
+							<a href="{{ path('annonce_edit', {'id': annonce.id}) }}"><i class="bi bi-pencil-square"></i></a> 
 					  {% endif %} 
 					 	</div>
 									 

@@ -90,13 +90,16 @@ class AnnonceController extends AbstractController
             //throw new AccessDeniedException('Only the owner can edit the annonce!');
 
        // }
-        $annonce->setUpdatedAt( new \DateTime());
+     
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager = $this->getDoctrine()->getManager();
+            $annonce->setUpdatedAt( new \DateTime());
+            $annonce->setIsValidated(false);
+            $entityManager->persist($annonce);
+            $entityManager->flush();
             $message = (new Email())
             ->from('from@example.com')
             ->to('to@example.com')
