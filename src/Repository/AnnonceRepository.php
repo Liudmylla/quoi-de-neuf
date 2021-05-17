@@ -22,12 +22,12 @@ class AnnonceRepository extends ServiceEntityRepository
     /**
      * @return Annonce[] Returns an array of Annonce objects
      */
-    public function findByAuteur($value)
+    public function findLikeTitle($titre)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.auteur = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.updated_at', 'ASC')
+            ->andWhere('a.titre like :titre')
+            ->setParameter('titre', '%'.$titre.'%')
+            ->orderBy('a.titre', 'ASC')
             ->getQuery()
             ->getResult()
         ;

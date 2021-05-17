@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Form\SearchAnnonceFormType;
+use App\Repository\AnnonceRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +17,18 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(Request $request, PaginatorInterface $paginator, CategoryRepository $categoryRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator,
+     CategoryRepository $categoryRepository,
+     AnnonceRepository $annonceRepository): Response
     {
-
-        $donnees = $this->getDoctrine()
-        ->getRepository(Annonce::class)
-        ->findBy([],["updatedAt"=>"desc"]);
+        $form = $this->createForm(SearchAnnonceFormType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $donnees =$annonceRepository->findLikeTitle($search);
+        } else {
+            $donnees = $annonceRepository->findBy([], ['updatedAt' => 'DESC']);
+        }
 
         $annonces = $paginator->paginate(
             $donnees, // Requête contenant les données à paginer (ici nos articles)
@@ -31,6 +39,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'annonces' => $annonces,
             'categories' => $categoryRepository->findBy([], ['id' => 'ASC']),
+            'form' => $form->createView(),
         ]);
     }
       

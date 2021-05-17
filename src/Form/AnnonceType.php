@@ -26,8 +26,6 @@ class AnnonceType extends AbstractType
                 'allow_delete'  => true, // not mandatory, default is true
                 'download_uri' => true, // not mandatory, default is true
              ])
-             
-             
              ;
     }
 
