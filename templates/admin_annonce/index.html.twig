@@ -15,6 +15,9 @@
 </li>
 {% endfor %}
 </ol>
+{% for message in app.flashes('success') %}
+			<div class="alert alert-success">{{message}}</div>
+{% endfor %}
  <h1  class="row justify-content-center mb-3" > Les nouvelles à valider</h1>
 
 <div class="row" style="background-color: wheat;border-radius: 50px;">
@@ -48,11 +51,14 @@
 					 	</div>
 					</div>
 		</div>
+	
 	</div>
 			
+	
 
 
     {% endif %} 
+		
 	{% endfor %}
 	
 </div>

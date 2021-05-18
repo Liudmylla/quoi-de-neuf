@@ -11,14 +11,15 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 /**
- * @Route("/admin/user")
+ * @Route("/admin-user")
+ * @IsGranted("ROLE_ADMIN")
  */
 class AdminUserController extends AbstractController
 {
     /**
-     * @Route("/", name="admin_user_index", methods={"GET"})
+     * @Route("", name="admin_user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
