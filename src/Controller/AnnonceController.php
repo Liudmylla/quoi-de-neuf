@@ -56,7 +56,7 @@ class AnnonceController extends AbstractController
             ->subject('Une nouvelle à valider')
             ->text('Utilisateur a partagé une nouvelle');
             $mailer->send($message);
-            $this->addFlash('success', 'Votre nouvelle va etre publié apres la verification de la contenu par un moderateur');
+            $this->addFlash('success', 'Votre nouvelle va être publié après la vérification de la contenu par un modérateur');
             return $this->redirectToRoute('home');
         }
 
