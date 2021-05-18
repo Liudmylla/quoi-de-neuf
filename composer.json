@@ -14,7 +14,6 @@
         "doctrine/orm": "^2.8",
         "easycorp/easyadmin-bundle": "^3.2",
         "friendsofsymfony/ckeditor-bundle": "^2.3",
-        "fzaninotto/faker": "^1.9",
         "knplabs/knp-paginator-bundle": "^5.4",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
@@ -58,7 +57,8 @@
         "symfony/phpunit-bridge": "^5.2",
         "symfony/stopwatch": "^5.2",
         "symfony/var-dumper": "^5.2",
-        "symfony/web-profiler-bundle": "^5.2"
+        "symfony/web-profiler-bundle": "^5.2",
+        "fzaninotto/faker": "^1.9",
     },
     "config": {
         "optimize-autoloader": true,
@@ -84,16 +84,11 @@
     },
     "scripts": {
         "auto-scripts": {
-            "cache:clear": "symfony-cmd",
+         
             "ckeditor:install --clear=drop": "symfony-cmd",
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
-        },
-        "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
-            "@auto-scripts"
-        ]
+        }
+     
     },
     "conflict": {
         "symfony/symfony": "*"
