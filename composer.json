@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name": "app/russe",
+    "description": "Site de petites annonces fait with Symfony5",
     "license": "proprietary",
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -7,7 +9,6 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",
@@ -58,7 +59,7 @@
         "symfony/stopwatch": "^5.2",
         "symfony/var-dumper": "^5.2",
         "symfony/web-profiler-bundle": "^5.2",
-        "fzaninotto/faker": "^1.9",
+        "fzaninotto/faker": "^1.9"
     },
     "config": {
         "optimize-autoloader": true,
@@ -84,11 +85,16 @@
     },
     "scripts": {
         "auto-scripts": {
-         
+            "cache:clear": "symfony-cmd",
             "ckeditor:install --clear=drop": "symfony-cmd",
             "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
-        }
-     
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
     },
     "conflict": {
         "symfony/symfony": "*"
